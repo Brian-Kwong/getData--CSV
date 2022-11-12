@@ -1,7 +1,6 @@
 import csv
 from typing import List
 from build_data import CountyDemographics,getData
-import pyperclip
 
 
 # Gets a example object to reference off of
