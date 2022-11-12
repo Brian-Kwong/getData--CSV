@@ -19,7 +19,6 @@ def buildHeader()->List[str]:
 # Creates a list of the header names -> List[str]
 dictKey = buildHeader()
 
-
 def buildDataAsDict(obj:object)-> dict:
     '''
     Gets a instance of that object and converts it to a dict format for Python to write to a csv file
