@@ -39,6 +39,7 @@ try:
 	# Python 'doesn't' have a default copy and paste module so did this instead
 	with open("CountyDemographicsFiltered.txt","w") as file:
 		file.write(str(list_of_counties))
+	#Tries to add the pyperclip module, however if it runs into a error just bypasses it
 	try:
 		from pyperclip import copy
 		copy(str(list_of_counties))
