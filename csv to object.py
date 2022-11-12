@@ -24,7 +24,7 @@ try:
 			for attribute in dataLine:
 				# If the attribute is on the top level easy append the attribute to a sample object
 				if attribute in attributeList:
-					templateObject.__setattr__(attribute,dataLine[attribute])
+					templateObject.__setattr__(attribute,f'"{dataLine[attribute]}"')
 				else:
 					# Else the attribute is nested in a dict so we rebuild the dict one item at a time by overiding the sample object
 					for attributes in attributeList:
