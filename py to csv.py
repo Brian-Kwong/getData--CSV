@@ -1,6 +1,7 @@
 import csv
 from typing import List
 from build_data import CountyDemographics,getData
+from reducedData import reduced_data
 
 def buildHeader()->List[str]:
     '''
@@ -47,6 +48,18 @@ with open("CountyDemographics.csv","w",newline="") as csv_file:
     write.writeheader()
     # for each object in getData List of objects coverts them to a dict then writes that to a excel row 
     for countyDemographics in getData():
+        write.writerow(buildDataAsDict(countyDemographics))
+
+with open("CountyDemographicsReducedData.csv","w",newline="") as csv_file:
+    '''
+    Function that writes to the csv file
+    '''
+    # Writer object
+    write = csv.DictWriter(csv_file,dictKey,"",dialect="excel")
+    # Writes the header of the Excel file
+    write.writeheader()
+    # for each object in getData List of objects coverts them to a dict then writes that to a excel row 
+    for countyDemographics in reduced_data:
         write.writerow(buildDataAsDict(countyDemographics))
 
 

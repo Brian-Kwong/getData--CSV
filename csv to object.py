@@ -51,5 +51,4 @@ except Exception as e:
 		print("Looks like 'CountyDemographicsFiltered.csv' can not be found or accessed.\nPlease make sure all other programs are not accessing it before trying again.")
 	elif type(e) == (IndexError, ValueError):
 		print("Looks like the file is empty and or corrupted \nPlease regenerate the file using : 'Generate py to csv.py' before trying again")
-	else:
-		str(e)
+	print("Exit Code 1 \nPress any key to Exit")
