@@ -36,6 +36,7 @@ try:
 								currentAttribute[attribute] = dataLine[attribute]
 			# Once the object is rebuilt we append it to a list
 			list_of_counties.append(templateObject)
+			#Resets the template var
 			templateObject = getData()[0]
 	# Print the final list when all rows have been read and converted back into a their respective object
 	print(list_of_counties)
