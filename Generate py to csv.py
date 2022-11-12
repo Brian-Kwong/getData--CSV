@@ -1,7 +1,7 @@
 import csv
 from typing import List
 from build_data import CountyDemographics,getData
-from time import sleep
+import time
 import random 
 
 def buildHeader()->List[str]:
@@ -33,7 +33,8 @@ def buildDataAsDict(obj:object)-> dict:
         # If that attribute is a dict will go into the dict and retrieve each key:value pair then add that to a new dict
         if type(value) == dict:
             for key in value:
-                dictObject[key] = value[key]
+                
+                dictObject[key] = float(value[key])
         else:
             dictObject[attribute] = value
     # Returns the dict
@@ -42,6 +43,7 @@ def buildDataAsDict(obj:object)-> dict:
 
 try:
     numberOFCounties = int(input("How many counties would you like? : "))
+    s_time=time.time()
     with open("CountyDemographicsFiltered.csv","w",newline="") as csv_file:
         '''
         Function that writes to the csv file
@@ -53,13 +55,15 @@ try:
         # for each object in the sample (randomly generated) of getData List of objects coverts them to a dict then writes that to a excel row 
         for countyDemographics in random.sample(getData(),numberOFCounties):
             write.writerow(buildDataAsDict(countyDemographics))
+    print(f'CSV Generated with {numberOFCounties} counties in {round(time.time()-s_time,2)} seconds\nExit Code 0')
 except ValueError:
     # What happens if the user entry != number 
     # Throw a readable error and quits the application
     print("Input != Number Please Quit() and Try Again \nExit Code 1")
-    sleep(5)
-    quit()
+except PermissionError:
+   # Python can not read or write to any file if another program has it open
+   # Permission Denied Error
+   print(f"Looks like another application (Most likely Microsoft Excel) currently has the file 'CountyDemographicsFiltered.csv' open.\nPlease close all programs associated with the file before trying again\nExit Code: 1")
 finally:
     # Tells the user how many rows were generated and then quits application
-    print(f'CSV Generated with {numberOFCounties} counties \nExit Code 0')
-    input("Press Any Key to Quit()")
+    input("Press Any Key to Quit")

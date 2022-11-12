@@ -2,6 +2,7 @@ import csv
 from typing import List
 from build_data import CountyDemographics,getData
 from reducedData import reduced_data
+import time
 
 def buildHeader()->List[str]:
     '''
@@ -37,28 +38,34 @@ def buildDataAsDict(obj:object)-> dict:
     # Returns the dict
     return dictObject
 
-with open("CountyDemographics.csv","w",newline="") as csv_file:
-    '''
-    Function that writes to the csv file
-    '''
-    # Writer object
-    write = csv.DictWriter(csv_file,dictKey,"",dialect="excel")
-    # Writes the header of the Excel file
-    write.writeheader()
-    # for each object in getData List of objects coverts them to a dict then writes that to a excel row 
-    for countyDemographics in getData():
-        write.writerow(buildDataAsDict(countyDemographics))
-
-with open("CountyDemographicsReducedData.csv","w",newline="") as csv_file:
-    '''
-    Function that writes to the csv file
-    '''
-    # Writer object
-    write = csv.DictWriter(csv_file,dictKey,"",dialect="excel")
-    # Writes the header of the Excel file
-    write.writeheader()
-    # for each object in getData List of objects coverts them to a dict then writes that to a excel row 
-    for countyDemographics in reduced_data:
-        write.writerow(buildDataAsDict(countyDemographics))
-
-
+try:
+    s_time = time.time()
+    file= "CountyDemographics.csv"
+    with open(file,"w",newline="") as csv_file:
+        '''
+        Function that writes to the csv file
+        '''
+        # Writer object
+        write = csv.DictWriter(csv_file,dictKey,"",dialect="excel")
+        # Writes the header of the Excel file
+        write.writeheader()
+        # for each object in getData List of objects coverts them to a dict then writes that to a excel row 
+        for countyDemographics in getData():
+            write.writerow(buildDataAsDict(countyDemographics))
+    file= "CountyDemographicsReducedData.csv"
+    with open(file,"w",newline="") as csv_file:
+        '''
+        Function that writes to the csv file
+        '''
+        # Writer object
+        write = csv.DictWriter(csv_file,dictKey,"",dialect="excel")
+        # Writes the header of the Excel file
+        write.writeheader()
+        # for each object in getData List of objects coverts them to a dict then writes that to a excel row 
+        for countyDemographics in reduced_data:
+            write.writerow(buildDataAsDict(countyDemographics))
+    print(f'Created 2 ".csv" files in {round(time.time()-s_time,2)} seconds\nExit Code: 0')
+except PermissionError:
+       print(f"Looks like another application (Most likely Microsoft Excel) currently has the file '{file}' open.\nPlease close all programs associated with the file before trying again\nExit Code: 1")
+finally:
+    input("Press any key to exit")

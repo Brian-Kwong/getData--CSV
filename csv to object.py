@@ -23,20 +23,19 @@ def buildObject(dataLine:dict)->object:
 	for attribute in dataLine:
 	# If the attribute is on the top level easy append the attribute to a sample object
 		if attribute in attributeList:
-			templateObject.__setattr__(attribute,f'"{dataLine[attribute]}"')
+			templateObject.__setattr__(attribute,f'{dataLine[attribute]}')
 		else:
 		# Else the attribute is nested in a dict so we rebuild the dict one item at a time by overiding the sample object
 			for attributes in attributeList:
 				currentAttribute = templateObject.__getattribute__(attributes)
 				if attribute in currentAttribute:
-						if "." in dataLine[attribute]:
-						# If that data value is a float should be converted to a float before appending to dict
-							currentAttribute[attribute] = float(dataLine[attribute])
-						elif dataLine[attribute].isalnum():
-							currentAttribute[attribute] = int(dataLine[attribute])
-						else:
-						# Otherwise append as str
-							currentAttribute[attribute] = dataLine[attribute]
+					if dataLine[attribute].isalnum():
+						currentAttribute[attribute] = int(dataLine[attribute])
+					elif "." in dataLine[attribute]:
+						currentAttribute[attribute] = float(dataLine[attribute])
+					else:
+					# Otherwise append as str
+						currentAttribute[attribute] = dataLine[attribute]
 	return templateObject
 
 
