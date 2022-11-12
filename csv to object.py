@@ -1,7 +1,8 @@
 import csv
 from typing import List
 from build_data import CountyDemographics,getData
-import time
+import pyperclip
+
 
 # Gets a example object to reference off of
 templateObject = getData()[0]
@@ -35,6 +36,7 @@ try:
 			list_of_counties.append((templateObject))
 	# Print the final list when all rows have been read and converted back into a their respective object
 	print(list_of_counties)
+	pyperclip.copy(str(list_of_counties))
 	# Writes the list to a .txt file for easy copy and paste
 	# Python doesnt have a defualt copy and paste module so did this instead
 	with open("CountyDemographicsFiltered.txt","w") as file:
@@ -45,4 +47,5 @@ except Exception as e:
 		print("Looks like 'CountyDemographicsFiltered.csv' can not be found or accessed.\nPlease make sure all other programs are not accessing it before trying again.")
 	elif type(e) == (IndexError, ValueError):
 		print("Looks like the file is empty and or corrupted \nPlease regenerate the file using : 'Generate py to csv.py' before trying again")
-	input("ExitCode: 1 \nPress any key to Exit")
+	else:
+		str(e)
