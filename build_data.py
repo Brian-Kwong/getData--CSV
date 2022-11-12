@@ -17,10 +17,9 @@ class CountyDemographics:
         self.income = income
         self.population = population
         self.state = state
-
     def __repr__(self):
         return 'CountyDemographics({}, {}, {}, {}, {}, {}, {})'.format(
-                self.age,
+                    self.age,
                 self.county,
                 self.education,
                 self.ethnicities,
