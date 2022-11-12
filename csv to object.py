@@ -36,11 +36,15 @@ try:
 			list_of_counties.append((templateObject))
 	# Print the final list when all rows have been read and converted back into a their respective object
 	print(list_of_counties)
-	pyperclip.copy(str(list_of_counties))
 	# Writes the list to a .txt file for easy copy and paste
-	# Python doesnt have a defualt copy and paste module so did this instead
+	# Python 'doesn't' have a default copy and paste module so did this instead
 	with open("CountyDemographicsFiltered.txt","w") as file:
 		file.write(str(list_of_counties))
+	try:
+		from pyperclip import copy
+		copy(str(list_of_counties))
+	except ModuleNotFoundError:
+		pass
 # What happens if the file cant be found and or read
 except Exception as e:
 	if type(e) == FileNotFoundError:
