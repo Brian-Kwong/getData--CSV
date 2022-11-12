@@ -13,7 +13,7 @@ def buildHeader()->List[str]:
     for attribute in attribute_list:
         if type(getData()[0].__getattribute__(attribute)) == dict:
             for key in getData()[0].__getattribute__(attribute):
-                dictKey.append(key)
+                dictKey.append(key) 
         else:
             dictKey.append(attribute)
     return dictKey
@@ -38,6 +38,7 @@ def buildDataAsDict(obj:object)-> dict:
             dictObject[attribute] = value
     # Returns the dict
     return dictObject
+
 
 try:
     numberOFCounties = int(input("How many counties would you like? : "))
